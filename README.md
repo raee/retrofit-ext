@@ -23,8 +23,29 @@ allprojects {
 }
 ```
 
-Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
+Example
+---
+```java
+ GsonConverterFactory.create(new IGsonResponseBodyConverter() {
+    @Override
+    public Converter<ResponseBody, ?> responseBodyConverter(Gson gson, TypeAdapter<?> adapter, Type type, Annotation[] annotations) {
+        return new MyGsonConverter<>(gson, adapter, type, annotations);
+    }
+});
 
+private class MyGsonConverter<T> extends GsonResponseBodyConverter<T> {
+
+    MyGsonConverter(Gson gson, TypeAdapter<T> adapter, Type type, Annotation[] annotations) {
+        super(gson, adapter, type, annotations);
+    }
+
+    @Override
+    public T onResponseInterceptor(ResponseBody body, TypeAdapter<T> adapter, Type type, Annotation[] annotations) throws IOException {
+        return super.onResponseInterceptor(body, adapter, type, annotations);
+    }
+}
+    
+```
 
 
  [1]: https://github.com/google/gson

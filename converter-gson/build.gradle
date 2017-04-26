@@ -1,0 +1,62 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+uploadArchives {
+    apply plugin: 'maven'
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newInputStream())
+    def userName = properties.getProperty('maven.username')
+    def password = properties.getProperty('maven.password');
+
+    repositories.mavenDeployer {
+        repository(url: 'http://maven.raeblog.com:8081/repository/maven-rae/') {
+            authentication(userName: userName, password: password)
+        }
+        pom.project {
+            version '1.0.0'
+            artifactId 'converter-gson-rae'
+            groupId 'com.squareup.retrofit2'
+            packaging 'aar'
+        }
+    }
+
+    task androidSourcesJar(type: Jar) {
+        classifier = 'sources'
+        from android.sourceSets.main.java.sourceFiles
+    }
+    artifacts {
+        archives androidSourcesJar
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.squareup.okhttp3:okhttp:' + OKHTTP_VERSION
+    compile 'com.squareup.retrofit2:retrofit:' + RETROFIT_VERSION
+    compile 'com.google.code.gson:gson:' + GSON_VERSION
+    testCompile 'junit:junit:4.12'
+}

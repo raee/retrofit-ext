@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/gson/gson.iml" filepath="$PROJECT_DIR$/gson/gson.iml" />
-      <module fileurl="file://$PROJECT_DIR$/retrofit-converter-gson.iml" filepath="$PROJECT_DIR$/retrofit-converter-gson.iml" />
+      <module fileurl="file://$PROJECT_DIR$/converter-gson/converter-gson.iml" filepath="$PROJECT_DIR$/converter-gson/converter-gson.iml" />
+      <module fileurl="file://$PROJECT_DIR$/okhttp/okhttp.iml" filepath="$PROJECT_DIR$/okhttp/okhttp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/retrofit-ext.iml" filepath="$PROJECT_DIR$/retrofit-ext.iml" />
     </modules>
   </component>
 </project>

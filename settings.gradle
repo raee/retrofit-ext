@@ -1,1 +1,1 @@
-include ':gson'
+include ':converter-gson', ':okhttp'

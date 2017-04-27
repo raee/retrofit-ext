@@ -32,7 +32,7 @@ public class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
     private final Type type;
     private final Annotation[] annotations;
 
-    GsonResponseBodyConverter(Gson gson, TypeAdapter<T> adapter, Type type, Annotation[] annotations) {
+    public GsonResponseBodyConverter(Gson gson, TypeAdapter<T> adapter, Type type, Annotation[] annotations) {
         this.gson = gson;
         this.adapter = adapter;
         this.type = type;

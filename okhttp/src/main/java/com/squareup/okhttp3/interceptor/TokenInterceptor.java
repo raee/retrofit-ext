@@ -19,8 +19,8 @@ public abstract class TokenInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+        Request request = onInterceptRequest(chain.request());
 
-        Request request = chain.request();
         Response response = chain.proceed(request);
         if (!response.isSuccessful()) {
             return response;
@@ -29,22 +29,32 @@ public abstract class TokenInterceptor implements Interceptor {
         String body = bufferBody(response);
 
         // 判断Token是否过期
-        if (!TextUtils.isEmpty(body) && !invalidateToken(body)) {
-            // 刷新TOKEN
-            String token = refreshToken(body);
+        try {
+            if (!TextUtils.isEmpty(body) && invalidateToken(request, response, body)) {
+                // 刷新TOKEN
+                String token = refreshToken(body);
 
-            if (TextUtils.isEmpty(token)) {
+                if (TextUtils.isEmpty(token)) {
+                    return response;
+                }
+
+                //  替换Token
+                Request.Builder builder = request.newBuilder();
+                retryRequest(builder, token);
+                response = chain.proceed(builder.build());
                 return response;
             }
 
-            //  替换Token
-            Request.Builder builder = request.newBuilder();
-            retryRequest(builder, token);
-            response = chain.proceed(builder.build());
-            return response;
+        } catch (Exception e) {
+            throw new IOException(e);
         }
 
         return response;
+    }
+
+    // 拦截请求
+    protected Request onInterceptRequest(Request request) {
+        return request;
     }
 
 
@@ -64,10 +74,13 @@ public abstract class TokenInterceptor implements Interceptor {
     /**
      * 检查TOKEN是否过期
      *
-     * @param body 服务器返回的数据
-     * @return 过期返回false
+     * @param request  请求
+     * @param response 响应
+     * @param body     服务器返回的数据
+     * @return 过期返true
+     * @throws Exception
      */
-    protected abstract boolean invalidateToken(String body);
+    protected abstract boolean invalidateToken(Request request, Response response, String body) throws Exception;
 
     /**
      * 重新刷新TOKEN
@@ -75,7 +88,7 @@ public abstract class TokenInterceptor implements Interceptor {
      * @param body 服务器返回的数据
      * @return 新的Token
      */
-    protected abstract String refreshToken(String body);
+    protected abstract String refreshToken(String body) throws IOException;
 
     /**
      * 得到新的Token之后重新发请求
@@ -83,5 +96,5 @@ public abstract class TokenInterceptor implements Interceptor {
      * @param builder 请求体
      * @param token   新的Token
      */
-    protected abstract void retryRequest(Request.Builder builder, String token);
+    protected abstract void retryRequest(Request.Builder builder, String token) throws IOException;
 }

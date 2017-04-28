@@ -1,1 +1,1 @@
-include ':converter-gson', ':okhttp'
+include ':converter-gson', ':okhttp', ':session'

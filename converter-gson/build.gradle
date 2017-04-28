@@ -35,7 +35,7 @@ uploadArchives {
         }
         pom.project {
             version '1.0.0'
-            artifactId 'converter-gson-rae'
+            artifactId 'converter-gson-ext'
             groupId 'com.squareup.retrofit2'
             packaging 'aar'
         }

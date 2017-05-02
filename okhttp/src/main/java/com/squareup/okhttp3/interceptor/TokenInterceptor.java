@@ -22,9 +22,6 @@ public abstract class TokenInterceptor implements Interceptor {
         Request request = onInterceptRequest(chain.request());
 
         Response response = chain.proceed(request);
-        if (!response.isSuccessful()) {
-            return response;
-        }
 
         String body = bufferBody(response);
 

@@ -1,6 +1,10 @@
+<!--
+  ~ Copyright (c) 2017.
+  -->
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-          package="com.rae.session"
+          package="com.rae.swift"
 >
 
     <application android:allowBackup="true"

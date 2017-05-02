@@ -1,4 +1,8 @@
-package com.rae.session;
+/*
+ * Copyright (c) 2017.
+ */
+
+package com.rae.swift;
 
 import org.junit.Test;
 

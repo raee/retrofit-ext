@@ -18,9 +18,11 @@ public class NetworkCacheInterceptor implements Interceptor {
 
 
     private int mDefaultMaxAge;
+    private boolean mEnableDebug;
 
-    public NetworkCacheInterceptor() {
+    public NetworkCacheInterceptor(int maxAge, boolean enableDebug) {
         this(30);
+        mEnableDebug = enableDebug;
     }
 
     public NetworkCacheInterceptor(int maxAge) {
@@ -39,7 +41,9 @@ public class NetworkCacheInterceptor implements Interceptor {
         // 缓存时间
         int maxAge = (control != null && control.maxAgeSeconds() >= 0) ? control.maxAgeSeconds() : mDefaultMaxAge;
 
-        Log.w("rae", String.format("客户端请求：[%d]\n%s", maxAge, request.headers().toString()));
+        if (mEnableDebug) {
+            Log.w("rae", String.format("客户端请求：[%d] [%s]\n%s", maxAge, request.url().toString(), request.headers().toString()));
+        }
 
         response = response.newBuilder()
                 .removeHeader("Cache-Control")

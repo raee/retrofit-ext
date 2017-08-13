@@ -21,4 +21,5 @@ public final class Rx {
     public static boolean isEmpty(String text) {
         return TextUtils.isEmpty(text);
     }
+
 }

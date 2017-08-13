@@ -14,6 +14,8 @@ import okio.BufferedSource;
 
 /**
  * 日志记录拦截器
+ * 如果你的项目为library，可以在android{}节点添加下面的配置，可以防止设置BuildConfig.Debug为false
+ * defaultPublishConfig "debug"
  * Created by ChenRui on 2017/4/25 0025 16:02.
  */
 public class LoggerInterceptor implements Interceptor {

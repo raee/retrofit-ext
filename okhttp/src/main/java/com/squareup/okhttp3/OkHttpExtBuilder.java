@@ -2,6 +2,7 @@ package com.squareup.okhttp3;
 
 import android.content.Context;
 
+import com.squareup.okhttp3.cookie.RetrofitCookieManager;
 import com.squareup.okhttp3.https.HttpsCertificateFactory;
 import com.squareup.okhttp3.interceptor.CacheInterceptor;
 import com.squareup.okhttp3.interceptor.LoggerInterceptor;
@@ -81,6 +82,11 @@ public class OkHttpExtBuilder {
         mBuilder.cache(new Cache(dir, 1024 * 1024 * 50)); //50Mb
         mBuilder.addNetworkInterceptor(new NetworkCacheInterceptor(maxAge));
         mBuilder.addInterceptor(new CacheInterceptor(context));
+        return this;
+    }
+
+    public OkHttpExtBuilder cookie() {
+        mBuilder.cookieJar(new RetrofitCookieManager());
         return this;
     }
 

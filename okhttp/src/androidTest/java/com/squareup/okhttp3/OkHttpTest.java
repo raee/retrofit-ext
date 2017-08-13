@@ -56,4 +56,18 @@ public class OkHttpTest {
         response = client.newCall(request).execute();
         Log.i("rae", "请求成功！");
     }
+
+
+    @Test
+    public void testCookie() throws Exception {
+        String url = "http://192.168.168.21/laravel/public/rae/cookie";
+        Context context = InstrumentationRegistry.getContext();
+        OkHttpClient.Builder builder = new OkHttpExtBuilder().https().cache(context).cookie().debug("rae").build();
+        OkHttpClient client = builder.build();
+        Request request = new Request.Builder().url(url).build();
+
+        Response response = client.newCall(request).execute();
+        Log.i("rae", "响应：\n" + response.body().string());
+        Log.i("rae", "请求成功！");
+    }
 }

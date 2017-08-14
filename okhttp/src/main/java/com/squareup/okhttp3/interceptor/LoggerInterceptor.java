@@ -14,6 +14,8 @@ import okio.BufferedSource;
 
 /**
  * 日志记录拦截器
+ * 如果你的项目为library，可以在android{}节点添加下面的配置，可以防止设置BuildConfig.Debug为false
+ * defaultPublishConfig "debug"
  * Created by ChenRui on 2017/4/25 0025 16:02.
  */
 public class LoggerInterceptor implements Interceptor {
@@ -50,19 +52,20 @@ public class LoggerInterceptor implements Interceptor {
         Request request = chain.request();
         Response response = chain.proceed(request);
 
-        log("==============================================================================");
-        log("%s %s", request.method(), request.url());
+        try {
+            log("==============================================================================");
+            log("%s %s", request.method(), request.url());
 
-        String headString = request.headers().toString();
-        if (!TextUtils.isEmpty(headString)) {
-            log("请求头：\n%s", headString);
-            log("\n");
-        }
+            String headString = request.headers().toString();
+            if (!TextUtils.isEmpty(headString)) {
+                log("请求头：\n%s", headString);
+                log("\n");
+            }
 
-        String requestBody = bufferRequestBody(request);
-        if (requestBody != null) {
-            log("%s", requestBody);
-        }
+            String requestBody = bufferRequestBody(request);
+            if (requestBody != null) {
+                log("%s", requestBody);
+            }
 
 //        headString = response.headers().toString();
 //        if (!TextUtils.isEmpty(headString)) {
@@ -70,15 +73,19 @@ public class LoggerInterceptor implements Interceptor {
 //            log("\n");
 //        }
 
-        if (response.code() < 200 || response.code() >= 300) {
-            log("请求错误：%d %s", response.code(), response.message());
-        } else {
-            String body = bufferBody(response);
-            if (TextUtils.isEmpty(body)) {
-                log("返回结果为空！");
+            if (response.code() < 200 || response.code() >= 300) {
+                log("请求错误：%d %s", response.code(), response.message());
             } else {
-                log("返回结果：\n%s", decodeUnicode(body));
+                String body = bufferBody(response);
+                if (TextUtils.isEmpty(body)) {
+                    log("返回结果为空！");
+                } else {
+                    log("返回结果：\n%s", decodeUnicode(body));
+                }
             }
+        } catch (Throwable e) {
+            // 不要影响正常的返回
+            Log.e(mTag, "LoggerInterceptor打印日志错误！");
         }
 
         return response;

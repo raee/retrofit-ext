@@ -2,6 +2,7 @@ package com.squareup.okhttp3;
 
 import android.content.Context;
 
+import com.squareup.okhttp3.cookie.RetrofitCookieManager;
 import com.squareup.okhttp3.https.HttpsCertificateFactory;
 import com.squareup.okhttp3.interceptor.CacheInterceptor;
 import com.squareup.okhttp3.interceptor.LoggerInterceptor;
@@ -23,6 +24,7 @@ import okhttp3.OkHttpClient;
 public class OkHttpExtBuilder {
 
     private OkHttpClient.Builder mBuilder;
+    private boolean mEnableDebug;
 
     public OkHttpExtBuilder() {
         mBuilder = new OkHttpClient.Builder();
@@ -61,6 +63,7 @@ public class OkHttpExtBuilder {
      * 是否启动调试模式
      */
     public OkHttpExtBuilder debug(String tag) {
+        mEnableDebug = true;
         mBuilder.addInterceptor(new LoggerInterceptor(tag));
         return this;
     }
@@ -87,8 +90,13 @@ public class OkHttpExtBuilder {
     public OkHttpExtBuilder cache(Context context, int maxAge) {
         File dir = new File(context.getCacheDir(), "http-cache");
         mBuilder.cache(new Cache(dir, 1024 * 1024 * 50)); //50Mb
-        mBuilder.addNetworkInterceptor(new NetworkCacheInterceptor(maxAge));
+        mBuilder.addNetworkInterceptor(new NetworkCacheInterceptor(maxAge, mEnableDebug));
         mBuilder.addInterceptor(new CacheInterceptor(context));
+        return this;
+    }
+
+    public OkHttpExtBuilder cookie() {
+        mBuilder.cookieJar(new RetrofitCookieManager());
         return this;
     }
 

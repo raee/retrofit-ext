@@ -4,10 +4,6 @@
 
 apply plugin: 'com.android.library'
 
-Properties p = new Properties()
-p.load(new FileInputStream('local.properties'))
-def supportVersion = p.hasProperty('supportVersion') ? p.getProperty('supportVersion') : '25.2.0'
-
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -29,6 +25,7 @@ android {
     }
 }
 
+
 uploadArchives {
     apply plugin: 'maven'
 
@@ -43,8 +40,8 @@ uploadArchives {
         }
         pom.project {
             version '1.0.0'
-            artifactId 'rae-library'
-            groupId 'com.rae.swift'
+            artifactId 'jenkins-gitlab'
+            groupId 'com.rae.plugin'
             packaging 'aar'
         }
     }
@@ -63,7 +60,17 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:${supportVersion}"
+    compile 'com.android.support:appcompat-v7:25.2.0'
     testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:' + GSON_VERSION
+    androidTestCompile('com.github.raee:runit:1.0.0')
+    // rae ok http ext
+    compile 'com.squareup.okhttp3:okhttp-ext:3.6.0'
+    // rae retrofit gson converter ext
+    compile 'com.squareup.retrofit2:converter-gson-ext:1.0.0'
+    // RxJava
+    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    // RxAndroid
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    // retrofit RxJava adapter
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 }

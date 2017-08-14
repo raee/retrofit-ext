@@ -56,4 +56,24 @@ public class OkHttpTest {
         response = client.newCall(request).execute();
         Log.i("rae", "请求成功！");
     }
+
+    @Test
+    public void testCookie() throws Exception {
+        Context context = InstrumentationRegistry.getContext();
+        OkHttpClient.Builder builder = new OkHttpExtBuilder().https().cookie().debug("rae").build();
+        builder.connectTimeout(10, TimeUnit.SECONDS);
+        builder.readTimeout(10, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();
+        Request request = new Request.Builder().url("http://192.168.100.169:808/test.php")
+//                .post(new FormBody.Builder().build())
+//                .cacheControl(cache)
+                .build();
+        Response response = client.newCall(request).execute();
+        Log.i("rae", "第一次响应：" + response.body().string());
+
+        response = client.newCall(request).execute();
+        Log.i("rae", "第二次响应：" + response.body().string());
+
+    }
 }

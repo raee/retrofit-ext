@@ -1,6 +1,7 @@
 package com.squareup.okhttp3.interceptor;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -43,6 +44,7 @@ public abstract class TokenInterceptor implements Interceptor {
             }
 
         } catch (Exception e) {
+            Log.e("TokenInterceptor", "请求失败:" + request.url() + "\n返回结果：\n" + body);
             throw new IOException(e);
         }
 

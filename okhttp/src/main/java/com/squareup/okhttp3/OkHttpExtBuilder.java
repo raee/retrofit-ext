@@ -8,10 +8,12 @@ import com.squareup.okhttp3.interceptor.LoggerInterceptor;
 import com.squareup.okhttp3.interceptor.NetworkCacheInterceptor;
 
 import java.io.File;
+import java.net.CookieManager;
 
 import javax.net.ssl.SSLSocketFactory;
 
 import okhttp3.Cache;
+import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
 
 /**
@@ -68,6 +70,12 @@ public class OkHttpExtBuilder {
      */
     public OkHttpExtBuilder cache(Context context) {
         return cache(context, 30);
+    }
+
+    public OkHttpExtBuilder cookie() {
+        CookieManager.setDefault(new CookieManager());
+        mBuilder.cookieJar(new JavaNetCookieJar(CookieManager.getDefault()));
+        return this;
     }
 
     /**

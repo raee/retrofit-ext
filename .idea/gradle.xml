@@ -9,7 +9,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/converter-gson" />
-            <option value="$PROJECT_DIR$/jenkins-gitlab-plugin" />
             <option value="$PROJECT_DIR$/okhttp" />
             <option value="$PROJECT_DIR$/swift" />
           </set>

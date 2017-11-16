@@ -9,12 +9,12 @@ p.load(new FileInputStream('local.properties'))
 def supportVersion = p.hasProperty('supportVersion') ? p.getProperty('supportVersion') : '25.2.0'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.1"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
 
@@ -35,14 +35,14 @@ uploadArchives {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newInputStream())
     def userName = properties.getProperty('maven.username')
-    def password = properties.getProperty('maven.password');
+    def password = properties.getProperty('maven.password')
 
     repositories.mavenDeployer {
         repository(url: 'http://maven.raeblog.com:8081/repository/maven-rae/') {
             authentication(userName: userName, password: password)
         }
         pom.project {
-            version '1.0.0'
+            version '1.0.1'
             artifactId 'rae-library'
             groupId 'com.rae.swift'
             packaging 'aar'
@@ -63,7 +63,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile "com.android.support:appcompat-v7:${supportVersion}"
+    compile "com.android.support:support-v4:27.0.0"
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:' + GSON_VERSION
 }

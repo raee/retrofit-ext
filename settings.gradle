@@ -1,1 +1,1 @@
-include ':converter-gson', ':okhttp', ':swift', ':jenkins-gitlab-plugin'
+include ':converter-gson', ':okhttp', ':swift' //, ':jenkins-gitlab-plugin'

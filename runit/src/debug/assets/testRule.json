@@ -1,0 +1,20 @@
+{
+  "testArgument": [
+    {
+      "name": "测试方法",
+      "args": [
+        "rae"
+      ],
+      "successMessage": "",
+      "errorMessage": ""
+    },
+    {
+      "name": "测试方法",
+      "args": [
+        "test"
+      ],
+      "successMessage": "hei hei",
+      "errorMessage": ""
+    }
+  ]
+}

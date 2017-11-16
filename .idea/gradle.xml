@@ -8,9 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/converter-gson" />
-            <option value="$PROJECT_DIR$/okhttp" />
-            <option value="$PROJECT_DIR$/swift" />
+            <option value="$PROJECT_DIR$/runit" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

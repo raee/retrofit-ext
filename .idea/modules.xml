@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/converter-gson/converter-gson.iml" filepath="$PROJECT_DIR$/converter-gson/converter-gson.iml" />
-      <module fileurl="file://$PROJECT_DIR$/okhttp/okhttp.iml" filepath="$PROJECT_DIR$/okhttp/okhttp.iml" />
       <module fileurl="file://$PROJECT_DIR$/retrofit-ext.iml" filepath="$PROJECT_DIR$/retrofit-ext.iml" />
-      <module fileurl="file://$PROJECT_DIR$/swift/swift.iml" filepath="$PROJECT_DIR$/swift/swift.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/runit/runit.iml" filepath="$PROJECT_DIR$/.idea/modules/runit/runit.iml" />
     </modules>
   </component>
 </project>

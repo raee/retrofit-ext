@@ -4,6 +4,17 @@
 
 apply plugin: 'com.android.library'
 
+// 上传到jcenter
+apply plugin: 'bintray-release'
+publish {
+    artifactId = 'rae-library'
+    description = 'android swift dev tool'
+    version = '1.0.1'
+    userOrg = 'raee'
+    repoName = 'Android'
+    groupId = 'com.rae.swift'
+    website = 'https://github.com/raee/retrofit-ext.git'
+}
 Properties p = new Properties()
 p.load(new FileInputStream('local.properties'))
 def supportVersion = p.hasProperty('supportVersion') ? p.getProperty('supportVersion') : '25.2.0'
@@ -27,6 +38,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
+
+}
+
+// javadoc 不上传
+tasks.withType(Javadoc) {
+    options.encoding = "UTF-8"
+    options.addStringOption('Xdoclint:none', '-quiet')
 }
 
 uploadArchives {

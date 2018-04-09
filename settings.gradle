@@ -1,2 +1,2 @@
-//include ':converter-gson', ':okhttp', ':swift' //, ':jenkins-gitlab-plugin'
-include ':runit'
+//include ':converter-gson', ':okhttp', ':swift' //, ':jenkins-gitlab-plugin'':rxjava2'
+include  ':swift'

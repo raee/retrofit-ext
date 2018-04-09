@@ -1,0 +1,6 @@
+<!--
+  ~ Copyright (c) 2018.
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.rae.adapter.rxjava2"/>

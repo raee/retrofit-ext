@@ -11,9 +11,11 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 
 /**
+ * 本地保存的状态
  * Created by ChenRui on 2017/5/2 0002 18:37.
  */
 public class PreferencesSessionManager extends SessionManager {
+
 
     private final Config mConfig;
     private final Gson mGson = new Gson();

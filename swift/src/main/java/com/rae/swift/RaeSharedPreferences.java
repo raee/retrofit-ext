@@ -51,7 +51,7 @@ public final class RaeSharedPreferences {
             String key;
 
             if (name.startsWith("set")) {
-                key = name.replace("set", "");
+                key = name.substring(2);
                 Object arg = args[0];
                 if (arg instanceof String) {
                     mPreferences.edit().putString(key, arg.toString()).apply();
@@ -66,11 +66,8 @@ public final class RaeSharedPreferences {
                 } else {
                     mPreferences.edit().putString(key, new Gson().toJson(arg)).apply();
                 }
-            }
-
-
-            if (name.startsWith("get")) {
-                key = name.replace("get", "");
+            } else if (name.startsWith("get")) {
+                key = name.substring(2);
                 Class<?> type = method.getReturnType();
 
                 if (type == String.class) {
@@ -86,15 +83,10 @@ public final class RaeSharedPreferences {
                 } else {
                     return new Gson().fromJson(mPreferences.getString(key, ""), method.getReturnType());
                 }
-            }
-
-
-            if (name.startsWith("clear")) {
-                key = name.replace("clear", "");
+            } else if (name.startsWith("clear")) {
+                key = name.substring(4);
                 mPreferences.edit().remove(key).apply();
-            }
-
-            if (TextUtils.equals("clearAll", name)) {
+            } else if (TextUtils.equals("clearAll", name)) {
                 mPreferences.edit().clear().apply();
             }
 

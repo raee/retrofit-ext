@@ -1,5 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+// 上传命令：$ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
 buildscript {
     repositories {
         jcenter()
@@ -7,12 +8,20 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
+        // jecenter上传
+        classpath 'com.novoda:bintray-release:0.8.0'
     }
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = "UTF-8"
+    options.addStringOption('Xdoclint:none', '-quiet')
 }
 
 allprojects {
     repositories {
         maven { url "http://maven.raeblog.com:8081/repository/maven-public/" }
+        maven { url "https://dl.bintray.com/raee/Android" }
         jcenter()
         google()
     }
